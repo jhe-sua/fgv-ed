@@ -2,6 +2,8 @@
 
 using namespace std;
 
+namespace emap{
+
 // Prototipos
 struct ListaDinamica;
 ListaDinamica* inicializar(int capacidade);
@@ -70,4 +72,5 @@ void display(ListaDinamica* p)
     }
     cout << (*p).dados[(*p).tamanho - 1] << "]" << endl;
     
+}
 }
