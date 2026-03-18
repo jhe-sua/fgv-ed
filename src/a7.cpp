@@ -94,14 +94,3 @@ class SMS: public Notificacao
             cout << "SMS" << endl;
         }
 };
-
-int main()
-{
-    ArrayDinamico a(10);
-    a.display();
-
-    SMS sms("Ola");
-    sms.enviar();
-
-    return 0;
-}
