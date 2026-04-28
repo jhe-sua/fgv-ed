@@ -1,3 +1,6 @@
 [submodule "tarefa1"]
 	path = tarefa1
 	url = https://github.com/jhe-sua/tarefa1-ed.git
+[submodule "lista2-ED"]
+	path = lista2-ED
+	url = https://github.com/joao-guilh/lista2-ED.git
