@@ -8,7 +8,6 @@ public:
     int valor;
     no* next;
     no(int valor);
-    ~no();
 };
 
 no::no(int valor)
@@ -17,24 +16,20 @@ no::no(int valor)
     this->next = nullptr;
 }
 
-no::~no()
-{
-    delete next;
-}
-
 ///////////////////////////////////////////////////////////////////////////////
 
 class le
 {
 private:
-    no* head;
-    no* tail;
-    int tamanho;
-    int capacidade;
+no* tail;
+int tamanho;
+int capacidade;
 public:
+    no* head;
     le();
     ~le();
     void inserir(int pos, int valor);
+    void append(int value);
     void print();
 };
 
@@ -70,7 +65,7 @@ void le::inserir(int pos, int valor)
         return;
     }
 
-    if (pos == 0)
+    if (pos <= 0)
     {
         no* temp = new no(valor);
         temp->next = head;
@@ -79,7 +74,7 @@ void le::inserir(int pos, int valor)
         return;
     }
 
-    if (pos == tamanho)
+    if (pos >= tamanho)
     {
         no* temp = new no(valor);
         tail->next = temp;
@@ -91,7 +86,7 @@ void le::inserir(int pos, int valor)
 
     int i = 0;
     no* atual = this->head;
-    while (i < pos)
+    while (i < pos - 1)
     {
         atual = atual->next;
         i++;
@@ -103,8 +98,30 @@ void le::inserir(int pos, int valor)
     
 }
 
+void le::append(int value)
+{   
+    no* end = new no(value);
+    if (tamanho == 0)
+    {   
+        head = end;
+        tail = end;
+    } else
+    {
+        tail->next = end;
+        tail = end;
+    }
+    tamanho++;
+}
+
 void le::print()
 {   
+    if (head == nullptr)
+    {
+        cout << "[]" << endl;
+        return;
+    }
+    
+
     no* atual = head;
     cout << "[" << atual->valor << ", ";
     for(int i = 1; i < tamanho - 1; i++)
@@ -112,16 +129,65 @@ void le::print()
         atual = atual->next;
         cout << atual->valor << ", ";
     }
-    cout << atual->valor << "]";
+    cout << atual->valor << "]" << endl;
     
 }
 
+// Funções adicionais
+
+int list_size(no* head)
+{
+    int size = 0;
+    if(head != nullptr)
+    {
+        size += 1 + list_size(head->next);
+    }
+    return size;
+}
+
+no* remove_all(no* head, int x){
+
+    // Caso base 
+    if (head == nullptr)
+    {
+        return nullptr;
+    }
+
+    // divisão e conquista
+    no* new_head = remove_all(head->next, x); // problema k=n-1
+    no* temp = nullptr;
+    if (head->valor == x) // problema k=1
+    {
+        delete head;
+        head == new_head;
+    }
+    return head;
+}
+
 int main()
-{   
+{
     le teste;
-    teste.inserir(0, 8);
-    teste.inserir(1, 9);
-    teste.inserir(2, 20);
+
+    int tam = list_size(teste.head);
+    cout <<"tamanho: " << tam << endl;
+
+    teste.append(1);
+    teste.append(2);
+    teste.append(3);
+    
+    cout << "Lista apos appends: ";
     teste.print();
+
+    tam = list_size(teste.head);
+    cout <<"tamanho: " << tam << endl;
+
+    teste.inserir(1, 99); // Inserir 99 na posição do índice 1
+    
+    cout <<"Lista apos inserir 99 na pos 1: ";
+    teste.print();
+
+    tam = list_size(teste.head);
+    cout <<"tamanho: " << tam << endl;
+    
     return 0;
 }
