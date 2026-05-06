@@ -12,7 +12,7 @@ void merge(int* arr, int p, int q, int r)
 
     int n_1 = q - p + 1;  // numero de elementos em L
     int n_2 = r - q;      // numero de elementos em R
-    int n_3;              // numero de elementos em arr_r
+    int n_3 = 0;              // numero de elementos em arr_r
 
     int* L = new int[n_1];
     int* R = new int[n_2];
@@ -56,6 +56,7 @@ void merge(int* arr, int p, int q, int r)
         arr_r = L + idL; // ponteiro do primeiro elemento da lista que acabou
     }
 
+    // sempre vai acabar L ou R primeiro sobrando 1 elemento no outro
     for (int i = 0; i < n_3; i++)
     {
         arr[idxA + i] = arr_r[i];

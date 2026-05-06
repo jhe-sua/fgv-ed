@@ -4,3 +4,6 @@
 [submodule "lista1-ED"]
 	path = lista1-ED
 	url = https://github.com/jhe-sua/tarefa1-ed.git
+[submodule "lista3-ED"]
+	path = lista3-ED
+	url = git@github.com:jhe-sua/lista3-ED.git

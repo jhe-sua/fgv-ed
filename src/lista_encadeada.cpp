@@ -123,14 +123,14 @@ void le::print()
     
 
     no* atual = head;
-    cout << "[" << atual->valor << ", ";
-    for(int i = 1; i < tamanho - 1; i++)
+
+    cout << "[";
+    while (atual->next != nullptr)
     {
-        atual = atual->next;
         cout << atual->valor << ", ";
+        atual = atual->next;
     }
     cout << atual->valor << "]" << endl;
-    
 }
 
 // Funções adicionais
@@ -145,7 +145,7 @@ int list_size(no* head)
     return size;
 }
 
-no* remove_all(no* head, int x){
+no* remove_all(no* &head, int x){
 
     // Caso base 
     if (head == nullptr)
@@ -155,16 +155,20 @@ no* remove_all(no* head, int x){
 
     // divisão e conquista
     no* new_head = remove_all(head->next, x); // problema k=n-1
-    no* temp = nullptr;
+
     if (head->valor == x) // problema k=1
-    {
+    {   
         delete head;
-        head == new_head;
+        head = new_head;
+        return new_head;
+    } else
+    {
+        head->next = new_head;
+        return head;
     }
-    return head;
 }
 
-int main()
+/*int main()
 {
     le teste;
 
@@ -190,4 +194,23 @@ int main()
     cout <<"tamanho: " << tam << endl;
     
     return 0;
+}*/
+
+int main()
+{
+    le teste;
+    teste.append(1);
+    teste.append(92);
+    teste.append(92);
+    teste.append(23);
+    teste.append(1);
+    teste.append(2);
+    teste.print();
+
+    remove_all(teste.head, 92);
+    teste.print();
+
+    remove_all(teste.head, 1);
+    teste.print();
+
 }
