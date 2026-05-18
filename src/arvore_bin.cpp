@@ -5,11 +5,11 @@ using namespace std;
 class Node
 {
 public:
+    int key;
     Node* left = nullptr;
     Node* p = nullptr;
     Node* right = nullptr;
 
-    int key;
     Node(int key);
     ~Node() = default;
 };
@@ -22,15 +22,17 @@ Node::Node(int key)
 class Tree
 {
 private:
+    Node* SearchHelper(Node* current, int key);
 public:
     Node* root = nullptr;
     Tree() = default;
     ~Tree() = default;
 
-    void insert(int key);
+    void Insert(int key);
+    Node* Search(int key);
 };
 
-void Tree::insert(int key)
+void Tree::Insert(int key)
 {
     Node* new_node = new Node(key);
 
@@ -87,16 +89,34 @@ void dfs_pos(Node* root)
     }
 }
 
+Node* Tree::SearchHelper(Node* current, int key)
+{
+    if (current == nullptr) return nullptr;
+    if (current->key == key) return current;
+
+    if (key < current->key)
+    {
+        return SearchHelper(current->left, key);
+    }
+
+    return SearchHelper(current->right, key);
+}
+
+Node* Tree::Search(int key)
+{
+    return SearchHelper(root, key);
+}
+
 int main(void)
 {   
     Tree arvore = Tree();
-    arvore.insert(20);
-    arvore.insert(10);
-    arvore.insert(5);
-    arvore.insert(2);
-    arvore.insert(25);
-    arvore.insert(30);
-    arvore.insert(7);
+    arvore.Insert(20);
+    arvore.Insert(10);
+    arvore.Insert(5);
+    arvore.Insert(2);
+    arvore.Insert(25);
+    arvore.Insert(30);
+    arvore.Insert(7);
     dfs_pre(arvore.root);
     cout << endl;
     dfs_in(arvore.root);
