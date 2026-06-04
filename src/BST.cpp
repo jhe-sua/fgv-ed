@@ -36,20 +36,20 @@ BST::~BST()
 {
 }
 
-Node* Search(Node* root, int key)
+Node* SearchHelper(Node* root, int key)
 {
     if (root == nullptr) return;
     if (root->key == key) return;
 
     if (key < root->key)
     {
-        return Search(root->left, key);
+        return SearchHelper(root->left, key);
     }
     
-    return Search(root->right, key);   
+    return SearchHelper(root->right, key);   
 }
 
-Node* Insert(Node* root, int key)
+Node* InsertHelper(Node* root, int key)
 {
     if (root == nullptr)
     {
@@ -59,12 +59,12 @@ Node* Insert(Node* root, int key)
 
     if (key > root->key)
     {
-        Node* new_node = Insert(root->right, key);
+        Node* new_node = InsertHelper(root->right, key);
         root->right = new_node;
         new_node->p = root;
     } else
     {
-        Node* new_node = Insert(root->left, key);
+        Node* new_node = InsertHelper(root->left, key);
         root->left = new_node;
         new_node->p = root;
     }
